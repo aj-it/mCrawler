@@ -5,7 +5,6 @@
         <data xmlns="http://nbpython.dev.java.net/ns/php-project/1">
             <name>mCrawler</name>
             <sources>
-                <root id="src.mCrawler.dir"/>
                 <root id="src.dir"/>
             </sources>
             <tests/>
