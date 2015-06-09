@@ -1,26 +1,32 @@
 import urllib2
-#from parser import MyHTMLParser
-#
-baseUrl = "http://www.imdb.com/title/tt1790864/"
-request = urllib2.urlopen(baseUrl)
-#
-## print(request.read())
-#
-## instantiate the parser and fed it some HTML
-#parser = MyHTMLParser()
-## parser.feed('<html><head><title>Test</title></head>'
-##            '<body><h1>Parse me!</h1></body></html>')
-#
-##parser.feed("<h1 class='header'> <span class='itemprop' itemprop='name'>Jurassic Park</span>"
-##            "<span class='nobr'>(<a href='/year/1993/?ref_=tt_ov_inf'>1993</a>)</span></h1>")
-##parser.feed(request.read())
-##
-##print parser.data
+import time
+import random
+from scraping import Scraping
+from data.Movie import Movie
 
-#import connect
 
-import requests
-import lxml.html
-hxs = lxml.html.document_fromstring(request.read())
-title = hxs.xpath('//*[@id="overview-top"]/h1/span[3]/text()')[0].strip()
-print title
+opener = urllib2.build_opener()
+opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+
+err = 0
+nid = 123213
+while(True):
+
+    sid = str(nid)
+    baseUrl = "http://www.imdb.com/title/tt"  + sid.zfill(7)
+    print baseUrl
+    try:
+        request = opener.open(baseUrl)
+    except urllib2.HTTPError:
+        err +=1
+        if(err > 10):
+            break
+
+    movie = Scraping.getMovie(request.read())
+    print movie
+
+    rand = random.randrange(1,5)
+    print "Pause ", rand
+    time.sleep(rand)
+    nid += 1
+print "fin de la boucle"

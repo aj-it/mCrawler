@@ -1,31 +1,20 @@
-#!/usr/bin/env python
-
-import os
-import requests
 import lxml.html
+from HTMLParser import HTMLParser
 
-from flask import Flask
-from flask import request
-from flask import jsonify
-from flask import render_template
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-
-@app.route('/get/')
-def get():
-    if request.args.get("id") is not None and request.args.get("id").startswith('tt'):
-        hxs = lxml.html.document_fromstring(requests.get("http://www.imdb.com/title/" + request.args.get("id")).content)
+class Scraping:
+    @staticmethod
+    def getMovie(html):
+        hxs = lxml.html.document_fromstring(html)
+        hp = HTMLParser()
         movie = {}
         try:
-            movie['title'] = hxs.xpath('//*[@id="overview-top"]/h1/span[1]/text()')[0].strip()
+            movie['title'] = hp.unescape(hxs.xpath('//*[@id="overview-top"]/h1/span[1]/text()')[0].strip())
         except IndexError:
             movie['title']
+        try:
+            movie['original_title'] = hxs.xpath('//*[@id="overview-top"]/h1/span[3]/text()')[0].strip().replace('"', '')
+        except IndexError:
+            movie['original_title'] = ""
         try:
             movie['year'] = hxs.xpath('//*[@id="overview-top"]/h1/span[2]/a/text()')[0].strip()
         except IndexError:
@@ -88,11 +77,5 @@ def get():
             movie['votes'] = hxs.xpath('//*[@id="overview-top"]/div[3]/div[3]/a[1]/span/text()')[0].strip()
         except IndexError:
             movie['votes'] = ""
-    else:
-        return "invalid id"
-    return jsonify(movie)
 
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+        return movie
