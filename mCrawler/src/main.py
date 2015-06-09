@@ -1,8 +1,8 @@
-#import urllib2
+import urllib2
 #from parser import MyHTMLParser
 #
-#baseUrl = "http://www.imdb.com/title/tt1790864/"
-#request = urllib2.urlopen(baseUrl)
+baseUrl = "http://www.imdb.com/title/tt1790864/"
+request = urllib2.urlopen(baseUrl)
 #
 ## print(request.read())
 #
@@ -17,4 +17,10 @@
 ##
 ##print parser.data
 
-import scraping
+#import connect
+
+import requests
+import lxml.html
+hxs = lxml.html.document_fromstring(request.read())
+title = hxs.xpath('//*[@id="overview-top"]/h1/span[3]/text()')[0].strip()
+print title
