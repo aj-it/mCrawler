@@ -33,10 +33,10 @@ while(True):
             directors = Scraping.getDirectors(request.read())
 
         movie['directors'] = directors
-    movie['imdb_id'] = sid
-    print movie
+        movie['imdb_id'] = sid
+        print movie
 
-    Movie.save(movie)
+        Movie.save(movie)
 
     rand = random.randrange(1,5)
     time.sleep(rand)
