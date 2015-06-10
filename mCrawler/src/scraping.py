@@ -29,9 +29,9 @@ class Scraping:
         except IndexError:
             movie['duration'] = ""
         try:
-            movie['genre'] = hxs.xpath('//*[@id="overview-top"]/div[2]/a/span/text()')
+            movie['genres'] = hxs.xpath('//*[@id="overview-top"]/div[2]/a/span/text()')
         except IndexError:
-            movie['genre'] = []
+            movie['genres'] = []
         try:
             movie['release_date'] = hxs.xpath('//*[@id="overview-top"]/div[2]/span[3]/a/text()')[0].strip()
         except IndexError:
@@ -50,9 +50,9 @@ class Scraping:
             movie['poster'] = ""
 
         try:
-            movie['stars'] = hxs.xpath('//*[@id="overview-top"]/div[6]/a/span/text()')
+            movie['actors'] = hxs.xpath('//*[@id="overview-top"]/div[6]/a/span/text()')
         except IndexError:
-            movie['stars'] = ""
+            movie['actors'] = ""
 
         return movie
 
@@ -65,7 +65,6 @@ class Scraping:
             data = hxs.xpath('//*[@id="fullcredits_content"]/table[1]/tbody/tr/td/a/text()')
             for d in data:
                 directors.append(d.strip())
-            print directors
         except IndexError:
             pass
 
