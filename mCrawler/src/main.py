@@ -1,6 +1,8 @@
 import urllib2
 import time
 import random
+import datetime
+
 from scraping import Scraping
 from data.Movie import Movie
 from data.Actor import Actor
@@ -17,7 +19,7 @@ while(True):
 
     sid = str(nid)
     movieUrl = "http://www.imdb.com/title/tt"  + sid.zfill(7)
-    print movieUrl
+    print str(datetime.datetime.now()) + " " + movieUrl
     try:
         request = opener.open(movieUrl)
     except urllib2.HTTPError:
