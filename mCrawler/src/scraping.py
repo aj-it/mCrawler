@@ -16,6 +16,11 @@ class Scraping:
             movie['original_title'] = original_title.replace('"', '')
         except IndexError:
             movie['original_title'] = ""
+            
+        try:
+            movie['type'] = hxs.xpath('//*[@id="overview-top"]/div[1]/text()')[0].strip()        
+        except IndexError:
+            movie['type'] = ""
         try:
             movie['year'] = hxs.xpath('//*[@id="overview-top"]/h1/span[2]/a/text()')[0].strip()
         except IndexError:
@@ -59,7 +64,6 @@ class Scraping:
     @staticmethod
     def getDirectors(html):
         hxs = lxml.html.document_fromstring(html)
-        hp = HTMLParser()
         directors = []
         try:
             data = hxs.xpath('//*[@id="fullcredits_content"]/table[1]/tbody/tr/td/a/text()')
