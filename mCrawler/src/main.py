@@ -19,7 +19,7 @@ while(True):
 
     sid = str(nid)
     movieUrl = "http://www.imdb.com/title/tt"  + sid.zfill(7)
-    print str(datetime.datetime.now()) + " " + movieUrl
+    #print str(datetime.datetime.now()) + " " + movieUrl
     try:
         request = opener.open(movieUrl)        
     except urllib2.HTTPError:
@@ -28,7 +28,7 @@ while(True):
             break
     else:
         movie = Scraping.getMovie(request.read())        
-        print movie
+        #print movie
         if(movie['type'] == ''):
         
             movie['imdb_id'] = sid.zfill(7)        
