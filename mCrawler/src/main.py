@@ -59,6 +59,6 @@ while(True):
                         id_director = Director.save(director.strip())
                     Movie.addDirector(id_movie, id_director)
 
-    rand = random.randrange(1,1)
-    time.sleep(rand)
+    #rand = random.randrange(1,1)
+    time.sleep(1)
     nid -= 1
