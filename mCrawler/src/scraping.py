@@ -45,7 +45,7 @@ class Scraping:
             except Exception:
                 movie['release_date'] = ""
         try:
-            movie['rating'] = int(hxs.xpath('//*[@id="overview-top"]/div[3]/div[3]/strong/span/text()')[0].strip())
+            movie['rating'] = float(hxs.xpath('//*[@id="overview-top"]/div[3]/div[3]/strong/span/text()')[0].strip())
         except IndexError:
             movie['rating'] = 0
 
