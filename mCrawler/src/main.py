@@ -11,6 +11,7 @@ from data.Genre import Genre
 from data.Director import Director
 from data.Imdb import Imdb
 
+
 opener = urllib2.build_opener()
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
