@@ -59,7 +59,6 @@ while(True):
                 print "can't to open directory url " + directorsUrl
             else:
                 directors = Scraping.getDirectors(request.read())
-                print directors
                 for director in directors:
                     id_director = Director.find(director.strip())
                     if(id_director == False):
