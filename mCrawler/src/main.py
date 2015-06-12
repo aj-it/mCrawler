@@ -21,7 +21,7 @@ while(True):
         nid = last_imdb_id + 1
         Imdb.save(nid)
     else:
-        nid = 0
+        nid = 1
     sid = str(nid)
         
     
