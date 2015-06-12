@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb
 import os
 class Connect:
     cnx = False
@@ -24,7 +24,7 @@ class Connect:
             if (data[0] == 'database'):
                 d = data[1].strip()
                 
-        self.cnx = mysql.connector.connect(user=u, password=p, host=h, database=d)
+        self.cnx = MySQLdb.connect(h, u, p, d)
         self.cursor = self.cnx.cursor()
         return self.cursor
 

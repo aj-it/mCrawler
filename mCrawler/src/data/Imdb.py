@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb
 from Connect import Connect
 
 class Imdb:
@@ -23,7 +23,7 @@ class Imdb:
         try:
             Imdb.save(nid)
             connect.closeConnect()
-        except mysql.connector.Error:
+        except MySQLdb.Error:
             connect.closeConnect()
             nid = Imdb.getLastImdbID()
         return nid
@@ -39,7 +39,7 @@ class Imdb:
         data = (id_imdb,)
         try:
             cursor.execute(query, data)
-        except mysql.connector.Error:
+        except MySQLdb.Error:
             raise
         connect.commit()
         connect.closeConnect()
