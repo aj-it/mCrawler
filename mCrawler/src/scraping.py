@@ -30,9 +30,9 @@ class Scraping:
                 movie['year'] = ""
         try:
             duration = hxs.xpath('//*[@id="overview-top"]/div[2]/time/text()')[0].strip()
-            movie['duration'] = duration.replace('min', '').strip()
+            movie['duration'] = int(duration.replace('min', '').strip())
         except IndexError:
-            movie['duration'] = ""
+            movie['duration'] = 0
         try:
             movie['genres'] = hxs.xpath('//*[@id="overview-top"]/div[2]/a/span/text()')
         except IndexError:
@@ -45,9 +45,9 @@ class Scraping:
             except Exception:
                 movie['release_date'] = ""
         try:
-            movie['rating'] = hxs.xpath('//*[@id="overview-top"]/div[3]/div[3]/strong/span/text()')[0].strip()
+            movie['rating'] = int(hxs.xpath('//*[@id="overview-top"]/div[3]/div[3]/strong/span/text()')[0].strip())
         except IndexError:
-            movie['rating'] = ""
+            movie['rating'] = 0
 
         try:
             movie['poster'] = hxs.xpath('//*[@id="img_primary"]/div/a/img/@src')[0].strip()
