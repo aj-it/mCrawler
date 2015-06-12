@@ -16,16 +16,9 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
 err = 0
 while(True):
-    last_imdb_id = Imdb.getLastImdbID()
-    if(last_imdb_id != False):
-        nid = last_imdb_id + 1
-        Imdb.save(nid)
-    else:
-        nid = 1
-        Imdb.save(nid)
+    nid = Imdb.getLastImdbID()
     sid = str(nid)
         
-    
     movieUrl = "http://www.imdb.com/title/tt"  + sid.zfill(7)
     log = open('main.log', 'a')
     log.write(str(datetime.datetime.now()) + " " + movieUrl + "\n")

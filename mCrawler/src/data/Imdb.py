@@ -13,13 +13,18 @@ class Imdb:
         result = False
         for (last_imdb_id) in cursor:
             if(last_imdb_id[0] == None):
-                result = 0
+                last_imdb_id = 0
             else:
-                result = int(last_imdb_id[0])
+                last_imdb_id = int(last_imdb_id[0])
             break
 
+        nid = last_imdb_id + 1
+        try:
+            Imdb.save(nid)
+        except mysql.connector.Error:
+            nid = self.getLastImdbID()
         connect.closeConnect()
-        return result
+        return nid
     
     @staticmethod
     def save(id_imdb):
