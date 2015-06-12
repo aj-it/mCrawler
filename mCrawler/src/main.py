@@ -27,6 +27,7 @@ while(True):
     try:
         request = opener.open(movieUrl)        
     except urllib2.HTTPError:
+        log.write("erreur de connection" + "\n")
         err +=1
         if(err > 10000):
             log.write("Arret du crawl" + "\n")
