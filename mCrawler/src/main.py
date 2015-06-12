@@ -15,12 +15,13 @@ opener = urllib2.build_opener()
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
 err = 0
-nid = 4766898
 while(True):
     last_imdb_id = Imdb.getLastImdbID()
     if(last_imdb_id != False):
         nid = last_imdb_id + 1
         Imdb.save(nid)
+    else:
+        nid = 0
     sid = str(nid)
         
     
