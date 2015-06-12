@@ -23,7 +23,7 @@ class Imdb:
         try:
             Imdb.save(nid)
         except mysql.connector.Error:
-            nid = self.getLastImdbID()
+            nid = Imdb.getLastImdbID()
         connect.closeConnect()
         return nid
     
