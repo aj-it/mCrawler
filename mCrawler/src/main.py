@@ -58,7 +58,7 @@ while(True):
             try:
                 request = opener.open(directorsUrl)
             except urllib2.HTTPError:
-                pass
+                print "can't to open directory url " + directorsUrl
             else:
                 directors = Scraping.getDirectors(request.read())
                 print directors
