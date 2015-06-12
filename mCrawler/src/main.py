@@ -34,9 +34,6 @@ while(True):
             break
     else:
         movie = Scraping.getMovie(request.read())
-        print movie
-        print nid
-        print "Type : " + movie['type']
         if(movie['type'] == ''):
         
             movie['imdb_id'] = nid        
@@ -55,6 +52,7 @@ while(True):
                 Movie.addGenre(id_movie, id_genre)
 
             directorsUrl = "http://www.imdb.com/title/tt{0}/fullcredits?ref_=tt_ov_dr#directors".format(sid)
+            time.sleep(1)
             try:
                 request = opener.open(directorsUrl)
             except urllib2.HTTPError:
