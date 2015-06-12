@@ -2,6 +2,7 @@ import urllib2
 import time
 import random
 import datetime
+import os
 
 from scraping import Scraping
 from data.Movie import Movie
@@ -19,16 +20,19 @@ while(True):
 
     sid = str(nid)
     movieUrl = "http://www.imdb.com/title/tt"  + sid.zfill(7)
-    #print str(datetime.datetime.now()) + " " + movieUrl
+    print str(datetime.datetime.now()) + " " + movieUrl
+    log = open('main.log', 'a')
+    log.write(str(datetime.datetime.now()) + " " + movieUrl + "\n")
+    log.close()
+    #exit(0)
     try:
         request = opener.open(movieUrl)        
     except urllib2.HTTPError:
         err +=1
-        if(err > 1000):
+        if(err > 10000):
             break
     else:
-        movie = Scraping.getMovie(request.read())        
-        #print movie
+        movie = Scraping.getMovie(request.read())                        
         if(movie['type'] == ''):
         
             movie['imdb_id'] = sid.zfill(7)        
