@@ -35,6 +35,9 @@ class Imdb:
                        "VALUES (%s)")
 
         data = (id_imdb,)
-        cursor.execute(query, data)
+        try:
+            cursor.execute(query, data)
+        except mysql.connector.Error:
+            raise
         connect.commit()
         connect.closeConnect()
