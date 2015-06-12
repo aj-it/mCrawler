@@ -22,6 +22,7 @@ while(True):
         Imdb.save(nid)
     else:
         nid = 1
+        Imdb.save(nid)
     sid = str(nid)
         
     
