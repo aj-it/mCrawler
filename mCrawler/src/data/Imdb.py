@@ -14,7 +14,7 @@ class Imdb:
         result = False
         for (last_imdb_id) in cursor:
             if(last_imdb_id[0] == None):
-                last_imdb_id = 10765
+                last_imdb_id = 0
             else:
                 last_imdb_id = int(last_imdb_id[0])
             break
@@ -22,9 +22,10 @@ class Imdb:
         nid = last_imdb_id + 1
         try:
             Imdb.save(nid)
+            connect.closeConnect()
         except mysql.connector.Error:
+            connect.closeConnect()
             nid = Imdb.getLastImdbID()
-        connect.closeConnect()
         return nid
     
     @staticmethod
