@@ -75,3 +75,5 @@ class Movie:
         connect.commit()
 
         connect.closeConnect()
+        
+    
