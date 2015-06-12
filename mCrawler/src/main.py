@@ -33,7 +33,10 @@ while(True):
             log.write("Arret du crawl" + "\n")
             break
     else:
-        movie = Scraping.getMovie(request.read())                        
+        movie = Scraping.getMovie(request.read())
+        print movie
+        print nid
+        print "Type : " + movie['type']
         if(movie['type'] == ''):
         
             movie['imdb_id'] = nid        
@@ -58,6 +61,7 @@ while(True):
                 pass
             else:
                 directors = Scraping.getDirectors(request.read())
+                print directors
                 for director in directors:
                     id_director = Director.find(director.strip())
                     if(id_director == False):

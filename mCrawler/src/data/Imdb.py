@@ -14,7 +14,7 @@ class Imdb:
         result = False
         for (last_imdb_id) in cursor:
             if(last_imdb_id[0] == None):
-                last_imdb_id = 0
+                last_imdb_id = 10765
             else:
                 last_imdb_id = int(last_imdb_id[0])
             break

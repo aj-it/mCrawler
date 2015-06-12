@@ -24,16 +24,16 @@ class Director:
     @staticmethod
     def save(name):
         connect = Connect()
-        id_director = False
+        cursor = connect.initConnect()
         query = ("INSERT INTO directors "
                        "(name)"
                        "VALUES (%s)")
 
         data = (name,)
-        cursor = connect.execute(query, data)
-        if (cursor != False):
-            cursor.commit()
-            id_director = cursor.lastrowid
+        cursor.execute(query, data)
+        connect.commit()
+
+        id_director = cursor.lastrowid
 
         connect.closeConnect()
 

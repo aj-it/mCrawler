@@ -9,7 +9,8 @@ class Connect:
         password=''
         host=''
         database=''
-        path = '/root/mCrawler'
+        #path = '/root/mCrawler'
+        path = '/home/allan/PycharmProjects/mCrawler'
         config = open(path + '/mCrawler/src/data/config.ini', 'r')
         for conf in config:
             
@@ -33,14 +34,3 @@ class Connect:
 
     def commit(self):
         self.cnx.commit()
-
-    def execute(self, query, data):
-        result = False
-        try:
-            self.cursor.execute(query, data)
-        except mysql.connector.Error:
-            print "erreur mysql " + query
-        else:
-            result = self.cursor
-
-        return result
