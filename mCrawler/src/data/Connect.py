@@ -5,7 +5,7 @@ class Connect:
     cursor = False
 
     def initConnect(self):
-        self.cnx = mysql.connector.connect(user='root', password='kinkon', host='127.0.0.1', database='suggmov')
+        self.cnx = mysql.connector.connect(user='root', password='kinkon', host='91.234.194.132', database='suggmov')
         self.cursor = self.cnx.cursor()
         return self.cursor
 
