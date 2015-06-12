@@ -33,3 +33,14 @@ class Connect:
 
     def commit(self):
         self.cnx.commit()
+
+    def execute(self, query, data):
+        result = False
+        try:
+            self.cursor.execute(query, data)
+        except mysql.connector.Error:
+            print "erreur mysql " + query
+        else:
+            result = self.cursor
+
+        return result
