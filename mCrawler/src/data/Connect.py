@@ -9,8 +9,8 @@ class Connect:
         password=''
         host=''
         database=''
-        #path = '/root/mCrawler'
-        path = '/home/allan/PycharmProjects/mCrawler'
+        path = '/root/mCrawler'
+        #path = '/home/allan/PycharmProjects/mCrawler'
         config = open(path + '/mCrawler/src/data/config.ini', 'r')
         for conf in config:
             
