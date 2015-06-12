@@ -32,6 +32,8 @@ while(True):
         if(err > 10000):
             log.write("Arret du crawl" + "\n")
             break
+    except urllib2.URLError:
+        print "erreur movie url " + movieUrl
     else:
         movie = Scraping.getMovie(request.read())
         if(movie['type'] == ''):
@@ -57,6 +59,8 @@ while(True):
                 request = opener.open(directorsUrl)
             except urllib2.HTTPError:
                 print "can't to open directory url " + directorsUrl
+            except urllib2.URLError:
+                print "error directory url " + directorsUrl
             else:
                 directors = Scraping.getDirectors(request.read())
                 for director in directors:
