@@ -22,12 +22,12 @@ class Scraping:
         except IndexError:
             movie['type'] = ""
         try:
-            movie['year'] = hxs.xpath('//*[@id="overview-top"]/h1/span[2]/a/text()')[0].strip()
+            movie['year'] = int(hxs.xpath('//*[@id="overview-top"]/h1/span[2]/a/text()')[0].strip())
         except IndexError:
             try:
-                movie['year'] = hxs.xpath('//*[@id="overview-top"]/h1/span[3]/a/text()')[0].strip()
+                movie['year'] = int(hxs.xpath('//*[@id="overview-top"]/h1/span[3]/a/text()')[0].strip())
             except IndexError:
-                movie['year'] = ""
+                movie['year'] = 0
         try:
             duration = hxs.xpath('//*[@id="overview-top"]/div[2]/time/text()')[0].strip()
             movie['duration'] = int(duration.replace('min', '').strip())
