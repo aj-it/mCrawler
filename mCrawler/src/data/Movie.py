@@ -75,5 +75,21 @@ class Movie:
         connect.commit()
 
         connect.closeConnect()
+
+    @staticmethod
+    def getMoviesWithoutDirector():
+        connect = Connect()
+        cursor = connect.initConnect()
+        query = ("SELECT id_movie, imdb_id "
+                 " FROM movies "
+                 " WHERE id_movie NOT IN (SELECT id_movie FROM movies_directors)")
+        cursor.execute(query)
+        result = {}
+        for (id_movie, imdb_id) in cursor:
+            result[id_movie] = imdb_id
+            break
+
+        connect.closeConnect()
+        return result
         
     
