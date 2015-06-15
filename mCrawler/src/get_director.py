@@ -32,5 +32,5 @@ for id_movie in movies:
 
             if(id_director != False):
                 Movie.addDirector(id_movie, id_director)
-                print "asso " + id_movie + " " + id_director
+                print "asso " + str(id_movie) + " " + str(id_director)
     time.sleep(1)
