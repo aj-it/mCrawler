@@ -1,5 +1,6 @@
 import urllib2
 import time
+import MySQLdb
 import random
 import datetime
 import os
@@ -31,6 +32,9 @@ for id_movie in movies:
                 id_director = Director.save(director.strip())
 
             if(id_director != False):
-                Movie.addDirector(id_movie, id_director)
+                try:
+                    Movie.addDirector(id_movie, id_director)
+                except MySQLdb.IntegrityError:
+                    print "Duplicate entry " + str(id_movie) + " " + str(id_director)
                 print "asso " + str(id_movie) + " " + str(id_director)
     time.sleep(1)

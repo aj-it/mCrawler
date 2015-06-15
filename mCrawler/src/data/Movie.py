@@ -82,7 +82,7 @@ class Movie:
         cursor = connect.initConnect()
         query = ("SELECT id_movie, imdb_id "
                  " FROM movies "
-                 " WHERE id_movie NOT IN (SELECT id_movie FROM movies_directors) AND id_movie > 5209")
+                 " WHERE id_movie NOT IN (SELECT id_movie FROM movies_directors) AND id_movie > 11844")
         cursor.execute(query)
         result = {}
         for (id_movie, imdb_id) in cursor:
