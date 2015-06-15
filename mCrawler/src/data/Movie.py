@@ -87,7 +87,6 @@ class Movie:
         result = {}
         for (id_movie, imdb_id) in cursor:
             result[id_movie] = imdb_id
-            break
 
         connect.closeConnect()
         return result
