@@ -13,10 +13,9 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
 movies = Movie.getMoviesWithoutDirector()
 for id_movie in movies:
-    print movies[id_movie]
     sid = str(movies[id_movie])
-    sid.zfill(7)
-    directorsUrl = "http://www.imdb.com/title/tt{0}/fullcredits?ref_=tt_ov_dr#directors".format(sid)
+    directorsUrl = "http://www.imdb.com/title/tt{0}/fullcredits?ref_=tt_ov_dr#directors".format(sid.zfill(7))
+    print directorsUrl
 
     try:
         request = opener.open(directorsUrl)
