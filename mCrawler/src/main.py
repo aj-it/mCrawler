@@ -33,43 +33,91 @@ while(True):
             log.write("Arret du crawl" + "\n")
             break
     except urllib2.URLError:
-        print "erreur movie url " + movieUrl
+        log.write("erreur movie url " + movieUrl + "\n")
     else:
-        movie = Scraping.getMovie(request.read())
-        if(movie['type'] == ''):
-        
-            movie['imdb_id'] = nid        
-            id_movie = Movie.save(movie)
+        movie = False
+        try:
+            movie = Scraping.getMovie(request.read())
+        except:
+            log.write("erreur du crawler " + movieUrl + "\n")
 
-            for actor in movie['actors']:
-                id_actor = Actor.find(actor.strip())
-                if(id_actor == False):
-                    id_actor = Actor.save(actor.strip())
-                Movie.addActor(id_movie, id_actor)
+        if (movie != False):
+            if(movie['type'] == ''):
 
-            for genre in movie['genres']:
-                id_genre = Genre.find(genre.strip())
-                if(id_genre == False):
-                    id_genre = Genre.save(genre.strip())
-                Movie.addGenre(id_movie, id_genre)
+                movie['imdb_id'] = nid
+                id_movie = False
+                try:
+                    id_movie = Movie.save(movie)
+                except:
+                    log.write("can't save movie" + movieUrl + "\n")
 
-            directorsUrl = "http://www.imdb.com/title/tt{0}/fullcredits?ref_=tt_ov_dr#directors".format(sid)
-            time.sleep(1)
-            try:
-                request = opener.open(directorsUrl)
-            except urllib2.HTTPError:
-                print "can't to open directory url " + directorsUrl
-            except urllib2.URLError:
-                print "error directory url " + directorsUrl
-            else:
-                directors = Scraping.getDirectors(request.read())
-                for director in directors:
-                    id_director = Director.find(director.strip())
-                    if(id_director == False):
-                        id_director = Director.save(director.strip())
+                if (id_movie != False):
+                    for actor in movie['actors']:
+                        id_actor = False
+                        try:
+                            id_actor = Actor.find(actor.strip())
+                        except:
+                            log.write("can't find actor" + movieUrl + "\n")
+                        if(id_actor == False):
+                            try:
+                                id_actor = Actor.save(actor.strip())
+                            except:
+                                log.write("can't save actor" + movieUrl + "\n")
+                        if (id_actor == False):
+                            try:
+                                Movie.addActor(id_movie, id_actor)
+                            except:
+                                log.write("can't associate actor-movie" + movieUrl + "\n")
 
-                    if(id_director != False):
-                        Movie.addDirector(id_movie, id_director)
+                    for genre in movie['genres']:
+                        id_genre = False
+                        try:
+                            id_genre = Genre.find(genre.strip())
+                        except:
+                            log.write("can't find genre" + movieUrl + "\n")
+                        if(id_genre == False):
+                            try:
+                                id_genre = Genre.save(genre.strip())
+                            except:
+                                log.write("can't save genre" + movieUrl + "\n")
+                            if(id_genre != False):
+                                try:
+                                    Movie.addGenre(id_movie, id_genre)
+                                except:
+                                    log.write("can't associate genre-movie" + movieUrl + "\n")
+
+                    time.sleep(1)
+                    directorsUrl = "http://www.imdb.com/title/tt{0}/fullcredits?ref_=tt_ov_dr#directors".format(sid)
+                    try:
+                        request = opener.open(directorsUrl)
+                    except urllib2.HTTPError:
+                        print "can't to open directory url " + directorsUrl
+                    except urllib2.URLError:
+                        print "error directory url " + directorsUrl
+                    except:
+                        log.write("can't open director" + directorsUrl + "\n")
+                    else:
+                        try:
+                            directors = Scraping.getDirectors(request.read())
+                        except:
+                            log.write("can't scaping" + directorsUrl + "\n")
+                        for director in directors:
+                            id_director = False
+                            try:
+                                id_director = Director.find(director.strip())
+                            except:
+                                log.write("can't find director" + directorsUrl + "\n")
+                            if(id_director == False):
+                                try:
+                                    id_director = Director.save(director.strip())
+                                except:
+                                    log.write("can't save" + directorsUrl + "\n")
+
+                            if(id_director != False):
+                                try:
+                                    Movie.addDirector(id_movie, id_director)
+                                except:
+                                    log.write("can't associate director-movie" + directorsUrl + "\n")
 
     #rand = random.randrange(1,1)
     time.sleep(1)
